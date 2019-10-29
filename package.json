@@ -5,11 +5,11 @@
   "main": "index.js",
   "dependencies": {
     "prisma-client-lib": "^1.34.10",
-    "typescript": "3.7.0-dev.20191016"
+    "typescript": "^3.7.0-beta"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node ./src/index.ts"
   },
   "author": "",
   "license": "ISC"
