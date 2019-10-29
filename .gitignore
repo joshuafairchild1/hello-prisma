@@ -20,4 +20,5 @@ out/
 
 node_modules
 
-/generated
+/src/server/generated
+!.idea
