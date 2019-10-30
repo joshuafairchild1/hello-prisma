@@ -10,7 +10,7 @@ quickl it can be used to get an app up and running.
 ### ["What is Prisma?"](https://github.com/prisma/prisma/blob/master/docs/1.1/04-Reference/01-Introduction/What-is-Prisma.md)
 
 ### How do I use it?
-1. Navigate to `src/lib/model`
+1. Navigate to `src/lib/prisma`
 
 1. [Deploy](https://www.prisma.io/docs/prisma-cli-and-configuration/cli-command-reference/prisma-deploy-xcv9/) your prisma service locally.
     ```
@@ -28,7 +28,7 @@ quickl it can be used to get an app up and running.
    
 4. Generate GraphQL API.
     ```
-    $ npx nexus-prisma-generate --client <absolute path to prisma-client>  --output <absolute path to nexus-prisma outdir>
+    $ npx nexus-prisma-generate --client ./src/lib/prisma/generated/prisma-client --output ./src/lib/prisma/generated/nexus-prisma
     ```
    
 5. Navigate to `src/server`. Start the prisma server.
