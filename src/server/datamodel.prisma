@@ -1,19 +1,5 @@
-type User {
+type Task {
   id: ID! @id
   name: String!
-  email: String @unique
-  posts: [Post!]!
-  widgets: [Widget!]
-}
-
-type Post {
-  id: ID! @id
-  title: String!
-  published: Boolean! @default(value: false)
-  author: User!
-}
-
-type Widget {
-  id: ID! @id
-  name: String!
+  completed: Boolean! @default(value: false)
 }

@@ -8,17 +8,10 @@ import { GraphQLServer } from 'graphql-yoga'
 const Query = prismaObjectType({
   name: 'Query',
   definition(t) {
-    t.prismaFields(['post'])
-    t.list.field('feed', {
-      type: 'Post',
-      resolve: (_, args, ctx) =>
-        ctx.prisma.posts(),
-    })
-    t.list.field('postsByUser', {
-      type: 'Post',
-      args: { email: stringArg() },
-      resolve: (_, { email }, ctx) =>
-        ctx.prisma.posts({ where: { author: { email } } }),
+    t.prismaFields(['task'])
+    t.list.field('tasks', {
+      type: 'Task',
+      resolve: (_, args, ctx) => ctx.prisma.tasks()
     })
   },
 })
@@ -26,27 +19,18 @@ const Query = prismaObjectType({
 const Mutation = prismaObjectType({
   name: 'Mutation',
   definition(t) {
-    t.prismaFields(['createUser', 'deletePost'])
-    t.field('createDraft', {
-      type: 'Post',
-      args: {
-        title: stringArg(),
-        authorId: idArg({ nullable: true }),
-      },
-      resolve: (_, { title, authorId }, ctx) =>
-        ctx.prisma.createPost({
-          title,
-          author: { connect: { id: authorId } },
-        }),
+    t.field('createTask', {
+      type: 'Task',
+      args: { name: stringArg() },
+      resolve: (_, { name }, ctx) => ctx.prisma.createTask({ name })
     })
-    t.field('publish', {
-      type: 'Post',
-      nullable: true,
+    t.field('completeTask', {
+      type: 'Task',
       args: { id: idArg() },
       resolve: (_, { id }, ctx) =>
-        ctx.prisma.updatePost({
+        ctx.prisma.updateTask({
           where: { id },
-          data: { published: true },
+          data: { completed: true },
         }),
     })
   },

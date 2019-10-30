@@ -22,3 +22,4 @@ node_modules
 
 /src/server/generated
 !.idea
+.idea/workspace.xml
