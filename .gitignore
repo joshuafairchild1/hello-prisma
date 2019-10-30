@@ -20,7 +20,7 @@ out/
 
 node_modules
 
-/src/server/generated
+/src/lib/prisma/generated
 !.idea
 .idea/workspace.xml
 .idea/$CACHE_FILE$

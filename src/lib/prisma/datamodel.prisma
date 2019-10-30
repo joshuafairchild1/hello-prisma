@@ -1,4 +1,4 @@
-type Task {
+type TodoItem {
   id: ID! @id
   name: String!
   completed: Boolean! @default(value: false)

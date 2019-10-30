@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { ApolloClient } from 'apollo-client'
-import { NormalizedCacheObject } from 'apollo-cache-inmemory'
-import useTodos from '../useTodos'
+import useTodos from './useTodos'
+import GraphQLClient from '../GraphQLClient'
 
 interface Props {
-  client: ApolloClient<NormalizedCacheObject>
+  client: GraphQLClient
 }
 
 function App({ client }: Props) {
@@ -43,7 +42,9 @@ function App({ client }: Props) {
           >
             {it.name}
             &nbsp;
-            <button onClick={() => markDone(it.id)} className="btn btn-primary btn-sm">Done</button>
+            <button onClick={() => markDone(it.id)} className="btn btn-primary btn-sm">
+              Done
+            </button>
           </p>)}
       </div>
       <div className="col">
