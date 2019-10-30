@@ -5,7 +5,7 @@ written in TypeScript, with a large portion of that code being generated
 by Prisma and made available to both the client and the server. Pretty cool!
 
 This app was build as an exploration to see what it is that Prisma does, and how
-quickl it can be used to get an app up and running.
+quickly it can be used to get an app up and running.
 
 ### ["What is Prisma?"](https://github.com/prisma/prisma/blob/master/docs/1.1/04-Reference/01-Introduction/What-is-Prisma.md)
 
