@@ -1,4 +1,4 @@
-import { prisma as PrismaClient } from './generated/prisma-client'
+import { prisma } from './generated/prisma-client'
 import datamodelInfo from './generated/nexus-prisma'
 import * as path from 'path'
 import { stringArg, idArg } from 'nexus'
@@ -11,7 +11,7 @@ const Query = prismaObjectType({
     t.prismaFields(['task'])
     t.list.field('tasks', {
       type: 'Task',
-      resolve: (_, args, ctx) => ctx.prisma.tasks()
+      resolve: prisma.tasks
     })
   },
 })
@@ -21,19 +21,20 @@ const Mutation = prismaObjectType({
   definition(t) {
     t.field('createTask', {
       type: 'Task',
-      args: { name: stringArg() },
-      resolve: (_, { name }, ctx) => ctx.prisma.createTask({ name })
+      args: { name: stringArg({ nullable: false }) },
+      resolve: (_, fields) => prisma.createTask({ name: fields.name })
     })
+
     t.field('completeTask', {
       type: 'Task',
-      args: { id: idArg() },
-      resolve: (_, { id }, ctx) =>
-        ctx.prisma.updateTask({
+      args: { id: idArg({ nullable: false }) },
+      resolve: (_, { id }) =>
+        prisma.updateTask({
           where: { id },
           data: { completed: true },
-        }),
+        })
     })
-  },
+  }
 })
 
 const schema = makePrismaSchema({
@@ -41,7 +42,7 @@ const schema = makePrismaSchema({
 
   prisma: {
     datamodelInfo,
-    client: PrismaClient,
+    client: prisma,
   },
 
   outputs: {
@@ -50,8 +51,6 @@ const schema = makePrismaSchema({
   },
 })
 
-const server = new GraphQLServer({
-  schema,
-  context: { prisma: PrismaClient },
-})
-server.start(() => console.log('Server is running on http://localhost:4000'))
+new GraphQLServer({ schema, context: { prisma } })
+  .start(() => console.log('Server is running on http://localhost:4000'))
+  .catch(error => console.error('Error starting GraphQLServer:', error))

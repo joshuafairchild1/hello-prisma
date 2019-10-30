@@ -23,3 +23,5 @@ node_modules
 /src/server/generated
 !.idea
 .idea/workspace.xml
+.idea/$CACHE_FILE$
+.idea/$PRODUCT_WORKSPACE_FILE$
