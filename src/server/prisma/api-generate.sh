@@ -15,4 +15,4 @@
 # This is not well documented, copied from:
 # https://github.com/prisma-labs/nexus-prisma/issues/119#issuecomment-465924945
 
-npx nexus-prisma-generate --client ./src/lib/prisma/generated/prisma-client --output ./src/lib/prisma/generated/nexus-prisma
+npx nexus-prisma-generate --client ./src/server/prisma/generated/prisma-client --output ./src/server/prisma/generated/nexus-prisma

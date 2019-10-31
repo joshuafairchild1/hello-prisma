@@ -1,6 +1,6 @@
-import { NexusGenArgTypes, NexusGenFieldTypes } from '../../lib/prisma/generated/nexus'
 import { ApolloClient } from 'apollo-client'
 import gql from 'graphql-tag'
+import { NexusGenArgTypes, NexusGenFieldTypes } from '../generated/nexus'
 
 type QueryTypes = NexusGenFieldTypes['Query']
 type QueryArgs = NexusGenArgTypes['Query']

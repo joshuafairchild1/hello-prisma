@@ -1,4 +1,4 @@
-import { prisma } from '../../lib/prisma/generated/prisma-client'
+import { prisma } from '../prisma/generated/prisma-client'
 import { GraphQLServer } from 'graphql-yoga'
 import prismaSchema from './prismaSchema'
 

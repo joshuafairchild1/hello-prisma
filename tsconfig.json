@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-      "jsx": "react",
+    "jsx": "react",
     "module": "commonjs",
     "noImplicitAny": true,
     "outDir": "./dist/",
@@ -9,7 +9,7 @@
   },
   "include": [
     "./src/**/*",
-    "./src/lib/prisma/generated/**/*"
+    "./src/server/prisma/generated/**/*"
   ],
   "exclude": [
     "build",

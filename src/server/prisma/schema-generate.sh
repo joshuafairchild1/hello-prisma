@@ -6,5 +6,3 @@ if [ "$1" ];
 else
     prisma deploy
 fi
-
-prisma generate

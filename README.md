@@ -10,7 +10,7 @@ quickly it can be used to get an app up and running.
 ### ["What is Prisma?"](https://github.com/prisma/prisma/blob/master/docs/1.1/04-Reference/01-Introduction/What-is-Prisma.md)
 
 ### How do I use it?
-1. Navigate to `src/lib/prisma`
+1. Navigate to `src/server/prisma`
 
 1. [Deploy](https://www.prisma.io/docs/prisma-cli-and-configuration/cli-command-reference/prisma-deploy-xcv9/) your prisma service locally.
     ```
@@ -18,7 +18,7 @@ quickly it can be used to get an app up and running.
     ```
 
 2. [Generate](https://www.prisma.io/docs/prisma-cli-and-configuration/cli-command-reference/prisma-generate-xcv2/) your data model
-   from the [SDL schema](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) defined in `src/lib/model/datamodel.prisma`.
+   from the [SDL schema](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) defined in `src/server/prisma/datamodel.prisma`.
     ```
     $ prisma generate
     ```
@@ -28,7 +28,7 @@ quickly it can be used to get an app up and running.
    
 4. Generate GraphQL API.
     ```
-    $ npx nexus-prisma-generate --client ./src/lib/prisma/generated/prisma-client --output ./src/lib/prisma/generated/nexus-prisma
+    $ npx nexus-prisma-generate --client ./src/server/prisma/generated/prisma-client --output ./src/server/prisma/generated/nexus-prisma
     ```
    
 5. Navigate to `src/server`. Start the prisma server.

@@ -1,0 +1,26 @@
+type TodoItem {
+  id: ID! @id
+  name: String!
+  completed: Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Playbook {
+  id: ID! @id
+  name: String!
+  organization: Organization
+  dealRoom: DealRoom
+}
+
+type DealRoom {
+  id: ID! @id
+  name: String!
+  playbooks: [Playbook!]!
+}
+
+type Organization {
+  id: ID! @id
+  name: String!
+  playbooks: [Playbook!]!
+}

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TodoItem } from '../../../lib/prisma/generated/prisma-client'
+import TodoItem from '../model/TodoItem'
 
 interface Props {
   items: TodoItem[]

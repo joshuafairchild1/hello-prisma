@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { TodoItem } from '../../../lib/prisma/generated/prisma-client'
 import GraphQLClient from '../GraphQLClient'
+import TodoItem from '../model/TodoItem'
 
 export default function useTodos(client: GraphQLClient) {
 
   const [ allTodos, setAllTodos ] = React.useState<TodoItem[]>([])
 
   const getAll = React.useCallback(async () => {
-    const all = await client.query('allTodos', GET_ALL_TODOS)
+    const all = await client.query('todoItems', GET_ALL_TODOS)
     setAllTodos(all)
   }, [client])
 
@@ -53,7 +53,7 @@ const TODO_FIELDS = [ 'id', 'name', 'completed', 'createdAt', 'updatedAt' ]
 
 const GET_ALL_TODOS = `
 query {
-  allTodos {
+  todoItems {
     ${TODO_FIELDS.join(', ')}
   }
 }
