@@ -21,9 +21,7 @@ export default function useTodos(client: GraphQLClient) {
   const markDone = React.useCallback(async (id: string) => {
     const completed = await client.mutate('completeTodoItem', MARK_TODO_DONE, { id })
     if (completed) {
-      setAllTodos(
-        [ ...allTodos.filter(it => it.id !== id), completed ]
-      )
+      setAllTodos([ ...allTodos.filter(it => it.id !== id), completed ])
     }
   }, [client, allTodos])
 
@@ -31,28 +29,32 @@ export default function useTodos(client: GraphQLClient) {
     getAll().catch(error => console.error('Error loading todos:', error))
   }, [ getAll ])
 
-  const incompleteTodos = []
-  const completeTodos = []
+  const incomplete = []
+  const complete = []
   for (const todo of allTodos) {
     if (todo.completed) {
-      completeTodos.push(todo)
+      complete.push(todo)
     } else {
-      incompleteTodos.push(todo)
+      incomplete.push(todo)
     }
   }
 
-  return {
-    incomplete: incompleteTodos,
-    complete: completeTodos,
-    addNew,
-    markDone
-  }
+  return { incomplete, complete, addNew, markDone }
 }
+/**
+ * import .graphql files in typescript:
+ * https://dev.to/open-graphql/how-to-resolve-import-for-the-graphql-file-with-typescript-and-webpack-35lf
+ *
+ * not doing this now since it requires editing the webpack config, which CRA
+ * doesn't allow
+ */
+
+const TODO_FIELDS = [ 'id', 'name', 'completed', 'createdAt', 'updatedAt' ]
 
 const GET_ALL_TODOS = `
 query {
   allTodos {
-    id, name, completed
+    ${TODO_FIELDS.join(', ')}
   }
 }
 `
@@ -60,7 +62,7 @@ query {
 const ADD_NEW_TODO = `
 mutation ($name: String!) {
   createTodoItem(name: $name) {
-    id, name, completed
+    ${TODO_FIELDS.join(', ')}
   }
 }
 `
@@ -68,7 +70,7 @@ mutation ($name: String!) {
 const MARK_TODO_DONE = `
 mutation ($id: ID!) {
   completeTodoItem(id: $id) {
-    id, name, completed
+    ${TODO_FIELDS.join(', ')}
   }
 }
 `

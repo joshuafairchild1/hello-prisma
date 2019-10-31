@@ -17,7 +17,8 @@ export default class GraphQLClient {
     variables?: R extends keyof QueryArgs ? QueryArgs[R] : never
   ) {
     const result = await this.client.query<Pick<QueryTypes, R>, typeof variables>({
-      query: gql`${graphQlQuery}`, variables
+      variables,
+      query: gql`${graphQlQuery}`
     })
     return result.data[resultKey]
   }
