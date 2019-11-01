@@ -1,34 +1,29 @@
 import { ApolloClient } from 'apollo-client'
 import gql from 'graphql-tag'
-import { NexusGenArgTypes, NexusGenFieldTypes } from '../generated/nexus'
-
-type QueryTypes = NexusGenFieldTypes['Query']
-type QueryArgs = NexusGenArgTypes['Query']
-type MutationTypes = NexusGenFieldTypes['Mutation']
-type MutationArgs = NexusGenArgTypes['Mutation']
+import { Mutation, Query } from '../generated/types'
 
 export default class GraphQLClient {
 
   constructor(private readonly client: ApolloClient<unknown>) {}
 
-  async query<R extends keyof QueryTypes>(
-    resultKey: R,
+  async query<F extends keyof Query>(
+    queryField: F,
     graphQlQuery: string,
-    variables?: R extends keyof QueryArgs ? QueryArgs[R] : never
+    variables?: any // TODO no any
   ) {
-    const result = await this.client.query<Pick<QueryTypes, R>, typeof variables>({
+    const result = await this.client.query<Pick<Query, F>, typeof variables>({
       variables,
       query: gql`${graphQlQuery}`
     })
-    return result.data[resultKey]
+    return result.data[queryField]
   }
 
-  async mutate<R extends keyof MutationTypes>(
-    resultKey: R,
+  async mutate<F extends keyof Mutation>(
+    resultKey: F,
     graphQlQuery: string,
-    variables?: MutationArgs[R]
+    variables?: any // TODO no any
   ) {
-    const result = await this.client.mutate<Pick<MutationTypes, R>, typeof variables>({
+    const result = await this.client.mutate<Pick<Mutation, F>, typeof variables>({
       variables,
       mutation: gql`${graphQlQuery}`
     })

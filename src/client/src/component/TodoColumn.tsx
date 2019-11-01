@@ -1,5 +1,5 @@
 import * as React from 'react'
-import TodoItem from '../model/TodoItem'
+import { TodoItem } from '../../generated/types'
 
 interface Props {
   items: TodoItem[]

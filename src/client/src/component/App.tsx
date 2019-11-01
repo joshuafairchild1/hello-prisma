@@ -13,7 +13,8 @@ function App({ client }: Props) {
 
   return <div className="container">
     <h2 style={{ marginTop: '1em' }}>Prisma To Do App</h2>
-    <form onSubmit={async () => {
+    <form onSubmit={async event => {
+      event.preventDefault()
       await addNew(todoName)
       setTodoName('')
     }}>

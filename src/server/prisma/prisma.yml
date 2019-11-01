@@ -4,3 +4,8 @@ datamodel: datamodel.prisma
 generate:
   - generator: typescript-client
     output: ./generated/prisma-client/
+
+hooks:
+  post-deploy:
+    - echo "Deployment finished"
+    - graphql get-schema

@@ -5,22 +5,3 @@ type TodoItem {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
-
-type Playbook {
-  id: ID! @id
-  name: String!
-  organization: Organization
-  dealRoom: DealRoom
-}
-
-type DealRoom {
-  id: ID! @id
-  name: String!
-  playbooks: [Playbook!]!
-}
-
-type Organization {
-  id: ID! @id
-  name: String!
-  playbooks: [Playbook!]!
-}

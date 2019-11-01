@@ -6,12 +6,10 @@
   "dependencies": {
     "graphql": "^14.5.8",
     "graphql-yoga": "^1.18.3",
-    "nexus": "^0.11.7",
-    "nexus-prisma": "^0.3.8",
-    "prisma-client-lib": "^1.34.10",
-    "typescript": "^3.7.0-beta"
+    "prisma-client-lib": "^1.34.10"
   },
   "devDependencies": {
+    "typescript": "^3.7.0-beta",
     "ts-node-dev": "^1.0.0-pre.43"
   },
   "scripts": {

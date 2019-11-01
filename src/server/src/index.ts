@@ -1,7 +1,12 @@
 import { prisma } from '../prisma/generated/prisma-client'
 import { GraphQLServer } from 'graphql-yoga'
-import prismaSchema from './prismaSchema'
+import resolvers from './resolvers'
 
-new GraphQLServer({ schema: prismaSchema, context: { prisma } })
-  .start(() => console.log('Server is running on http://localhost:4000'))
+const server = new GraphQLServer({
+  resolvers,
+  typeDefs: './prisma/generated/prisma.graphql',
+  context: { prisma }
+})
+
+server.start(() => console.log('GraphQLServer is running on http://localhost:4000'))
   .catch(error => console.error('Error starting GraphQLServer:', error))

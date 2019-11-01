@@ -1,6 +1,6 @@
 import * as React from 'react'
 import GraphQLClient from '../GraphQLClient'
-import TodoItem from '../model/TodoItem'
+import { TodoItem } from '../../generated/types'
 
 export default function useTodos(client: GraphQLClient) {
 
@@ -8,7 +8,9 @@ export default function useTodos(client: GraphQLClient) {
 
   const getAll = React.useCallback(async () => {
     const all = await client.query('todoItems', GET_ALL_TODOS)
-    setAllTodos(all)
+    if (all) {
+      setAllTodos(all.filter((it): it is TodoItem => it !== null))
+    }
   }, [client])
 
   const addNew = React.useCallback(async (name) => {
@@ -19,7 +21,7 @@ export default function useTodos(client: GraphQLClient) {
   }, [client, allTodos])
 
   const markDone = React.useCallback(async (id: string) => {
-    const completed = await client.mutate('completeTodoItem', MARK_TODO_DONE, { id })
+    const completed = await client.mutate('updateTodoItem', MARK_TODO_DONE, { id })
     if (completed) {
       setAllTodos([ ...allTodos.filter(it => it.id !== id), completed ])
     }
@@ -49,7 +51,7 @@ export default function useTodos(client: GraphQLClient) {
  * doesn't allow
  */
 
-const TODO_FIELDS = [ 'id', 'name', 'completed', 'createdAt', 'updatedAt' ]
+const TODO_FIELDS: Array<keyof TodoItem> = [ 'id', 'name', 'completed', 'createdAt', 'updatedAt' ]
 
 const GET_ALL_TODOS = `
 query {
@@ -61,7 +63,7 @@ query {
 
 const ADD_NEW_TODO = `
 mutation ($name: String!) {
-  createTodoItem(name: $name) {
+  createTodoItem(data: { name: $name }) {
     ${TODO_FIELDS.join(', ')}
   }
 }
@@ -69,7 +71,7 @@ mutation ($name: String!) {
 
 const MARK_TODO_DONE = `
 mutation ($id: ID!) {
-  completeTodoItem(id: $id) {
+  updateTodoItem(data: { completed: true }, where: { id: $id }) {
     ${TODO_FIELDS.join(', ')}
   }
 }
